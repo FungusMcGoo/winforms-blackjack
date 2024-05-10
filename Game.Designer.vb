@@ -94,9 +94,9 @@ Partial Class Game
         Label_score_dealer.BorderStyle = BorderStyle.Fixed3D
         Label_score_dealer.Location = New Point(61, 9)
         Label_score_dealer.Name = "Label_score_dealer"
-        Label_score_dealer.Size = New Size(42, 17)
+        Label_score_dealer.Size = New Size(15, 17)
         Label_score_dealer.TabIndex = 6
-        Label_score_dealer.Text = "Dealer"
+        Label_score_dealer.Text = "0"
         ' 
         ' Label_score_player
         ' 
@@ -104,9 +104,9 @@ Partial Class Game
         Label_score_player.BorderStyle = BorderStyle.Fixed3D
         Label_score_player.Location = New Point(61, 33)
         Label_score_player.Name = "Label_score_player"
-        Label_score_player.Size = New Size(41, 17)
+        Label_score_player.Size = New Size(15, 17)
         Label_score_player.TabIndex = 7
-        Label_score_player.Text = "Player"
+        Label_score_player.Text = "0"
         ' 
         ' Button1
         ' 
@@ -121,6 +121,7 @@ Partial Class Game
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        AutoSize = True
         ClientSize = New Size(1184, 661)
         Controls.Add(Button1)
         Controls.Add(Label_score_player)
@@ -132,7 +133,6 @@ Partial Class Game
         Controls.Add(Button_hit)
         Controls.Add(Button_deal)
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
-        MaximizeBox = False
         Name = "Game"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Blagjag: Pirate Blackjack"

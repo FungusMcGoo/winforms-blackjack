@@ -29,33 +29,40 @@ Partial Class Home
         ' 
         ' Button_exit
         ' 
-        Button_exit.Location = New Point(12, 585)
+        Button_exit.Font = New Font("Algerian", 20F, FontStyle.Regular, GraphicsUnit.Point)
+        Button_exit.Location = New Point(12, 546)
         Button_exit.Name = "Button_exit"
-        Button_exit.Size = New Size(242, 64)
+        Button_exit.RightToLeft = RightToLeft.No
+        Button_exit.Size = New Size(242, 60)
         Button_exit.TabIndex = 0
         Button_exit.Text = "Arr..."
         Button_exit.UseVisualStyleBackColor = True
         ' 
         ' Button_enter
         ' 
-        Button_enter.Location = New Point(930, 585)
+        Button_enter.Font = New Font("Algerian", 20F, FontStyle.Regular, GraphicsUnit.Point)
+        Button_enter.Location = New Point(930, 546)
         Button_enter.Name = "Button_enter"
-        Button_enter.Size = New Size(242, 64)
+        Button_enter.RightToLeft = RightToLeft.No
+        Button_enter.Size = New Size(242, 60)
         Button_enter.TabIndex = 1
         Button_enter.Text = "Ahoy!"
         Button_enter.UseVisualStyleBackColor = True
         ' 
         ' Home
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7F, 14F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1184, 661)
+        ClientSize = New Size(1184, 617)
+        ControlBox = False
         Controls.Add(Button_enter)
         Controls.Add(Button_exit)
+        Font = New Font("Algerian", 9F, FontStyle.Regular, GraphicsUnit.Point)
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
+        MinimizeBox = False
         Name = "Home"
+        RightToLeft = RightToLeft.No
         StartPosition = FormStartPosition.CenterScreen
-        Text = "Blagjag: Pirate Blackjack"
         ResumeLayout(False)
     End Sub
 
