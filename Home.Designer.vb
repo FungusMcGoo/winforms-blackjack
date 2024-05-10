@@ -25,15 +25,18 @@ Partial Class Home
         Dim resources As ComponentModel.ComponentResourceManager = New ComponentModel.ComponentResourceManager(GetType(Home))
         Button_exit = New Button()
         Button_enter = New Button()
+        PictureBox1 = New PictureBox()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Button_exit
         ' 
+        Button_exit.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         Button_exit.Font = New Font("Algerian", 20F, FontStyle.Regular, GraphicsUnit.Point)
-        Button_exit.Location = New Point(12, 546)
+        Button_exit.Location = New Point(497, 564)
         Button_exit.Name = "Button_exit"
         Button_exit.RightToLeft = RightToLeft.No
-        Button_exit.Size = New Size(242, 60)
+        Button_exit.Size = New Size(163, 41)
         Button_exit.TabIndex = 0
         Button_exit.Text = "Arr..."
         Button_exit.UseVisualStyleBackColor = True
@@ -41,13 +44,22 @@ Partial Class Home
         ' Button_enter
         ' 
         Button_enter.Font = New Font("Algerian", 20F, FontStyle.Regular, GraphicsUnit.Point)
-        Button_enter.Location = New Point(930, 546)
+        Button_enter.Location = New Point(418, 471)
         Button_enter.Name = "Button_enter"
         Button_enter.RightToLeft = RightToLeft.No
-        Button_enter.Size = New Size(242, 60)
+        Button_enter.Size = New Size(316, 87)
         Button_enter.TabIndex = 1
         Button_enter.Text = "Ahoy!"
         Button_enter.UseVisualStyleBackColor = True
+        ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
+        PictureBox1.Location = New Point(346, 164)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(457, 301)
+        PictureBox1.TabIndex = 2
+        PictureBox1.TabStop = False
         ' 
         ' Home
         ' 
@@ -55,6 +67,7 @@ Partial Class Home
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1184, 617)
         ControlBox = False
+        Controls.Add(PictureBox1)
         Controls.Add(Button_enter)
         Controls.Add(Button_exit)
         Font = New Font("Algerian", 9F, FontStyle.Regular, GraphicsUnit.Point)
@@ -63,9 +76,11 @@ Partial Class Home
         Name = "Home"
         RightToLeft = RightToLeft.No
         StartPosition = FormStartPosition.CenterScreen
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
     Friend WithEvents Button_exit As Button
     Friend WithEvents Button_enter As Button
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
