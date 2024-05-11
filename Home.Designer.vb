@@ -25,8 +25,8 @@ Partial Class Home
         Dim resources As ComponentModel.ComponentResourceManager = New ComponentModel.ComponentResourceManager(GetType(Home))
         Button_exit = New Button()
         Button_enter = New Button()
-        PictureBox1 = New PictureBox()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        PictureBox_pirate = New PictureBox()
+        CType(PictureBox_pirate, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Button_exit
@@ -52,14 +52,14 @@ Partial Class Home
         Button_enter.Text = "Ahoy!"
         Button_enter.UseVisualStyleBackColor = True
         ' 
-        ' PictureBox1
+        ' PictureBox_pirate
         ' 
-        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
-        PictureBox1.Location = New Point(346, 164)
-        PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(457, 301)
-        PictureBox1.TabIndex = 2
-        PictureBox1.TabStop = False
+        PictureBox_pirate.Image = CType(resources.GetObject("PictureBox_pirate.Image"), Image)
+        PictureBox_pirate.Location = New Point(365, 111)
+        PictureBox_pirate.Name = "PictureBox_pirate"
+        PictureBox_pirate.Size = New Size(467, 354)
+        PictureBox_pirate.TabIndex = 12
+        PictureBox_pirate.TabStop = False
         ' 
         ' Home
         ' 
@@ -67,7 +67,7 @@ Partial Class Home
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1184, 617)
         ControlBox = False
-        Controls.Add(PictureBox1)
+        Controls.Add(PictureBox_pirate)
         Controls.Add(Button_enter)
         Controls.Add(Button_exit)
         Font = New Font("Algerian", 9F, FontStyle.Regular, GraphicsUnit.Point)
@@ -76,11 +76,11 @@ Partial Class Home
         Name = "Home"
         RightToLeft = RightToLeft.No
         StartPosition = FormStartPosition.CenterScreen
-        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox_pirate, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
     Friend WithEvents Button_exit As Button
     Friend WithEvents Button_enter As Button
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PictureBox_pirate As PictureBox
 End Class
