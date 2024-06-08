@@ -1,10 +1,7 @@
-﻿Imports System.Drawing.Text
-Imports System.Security.Cryptography
-
-Public Class Game
-    Private Const PlayerCoins As Integer = 100
+﻿Public Class Game
+    Private Const StartingCoins As Integer = 100
     Private Const MaxBet As Integer = 500
-    Private Coins As Integer = PlayerCoins
+    Private Coins As Integer = StartingCoins
     Private BetAmount As Integer = 0
     Public Shared rRnd As New Random()
 
@@ -37,8 +34,31 @@ Public Class Game
         UpdateCoinCounter()
     End Sub
 
-    '********* WIP *********
-    Private Sub ResetGame() 'RESET FUNCTION
+    Private Sub PlayerBlackjack()
+        MessageBox.Show("Arr... Ye got a blagjag!") 'PLAYER WINS (BLACKJACK)
+        AddCoins(50)
+    End Sub
+
+    Private Sub PlayerWin()
+        MessageBox.Show("Arr... Ye bested me this time, scallywag!") 'PLAYER WINS
+        AddCoins(50)
+    End Sub
+
+    Private Sub DealerBlackJack()
+        MessageBox.Show("Har har har! It be all in the cards matey!") 'DEALER WINS (BLACKJACK)
+        DeductCoins(50)
+    End Sub
+
+    Private Sub DealerWin()
+        MessageBox.Show("Har har har! It be all in the cards matey!") 'DEALER WINS
+        DeductCoins(50)
+    End Sub
+
+    Private Sub Standoff()
+        MessageBox.Show("Avast!") ' DRAW - STANDOFF
+    End Sub
+
+    Private Sub ResetGame() 'RESET FUNCTION - Set player & dealer score to 0, re-enable buttons
         Label_score_player.Text = "0"
         Label_score_dealer.Text = "0"
         Button_deal.Enabled = False
@@ -47,10 +67,8 @@ Public Class Game
     End Sub
 
     Private Sub DealFirstHand() 'DEAL FIRST HAND
-        Label_score_player.Text = RandomNumber(11).ToString()
-        Label_score_player.Text = RandomNumber(11).ToString()
-        Label_score_player.Text = (CInt(Label_score_player.Text) + RandomNumber(10))
-        Label_score_dealer.Text = (CInt(Label_score_dealer.Text) + RandomNumber(10))
+        Label_score_player.Text = (RandomNumber(11) + RandomNumber(10)).ToString()
+        Label_score_dealer.Text = (RandomNumber(11) + RandomNumber(10)).ToString()
     End Sub
 
     Private Sub CheckForBlackjack() 'CHECKING FOR IMMEDIATE BLACKJACK
@@ -58,160 +76,48 @@ Public Class Game
         Dim DealerScore As Integer = CInt(Label_score_dealer.Text)
 
         If PlayerScore = 21 Then
-            MessageBox.Show("Arr... Ye got a blagjag!") 'PLAYER WINS (BLACKJACK)
-            AddCoins(BetAmount * 2)
-            '*END GAME FUNCTION HERE*
+            PlayerBlackjack()
+            EndGame()
         ElseIf DealerScore = 21 Then
-            MessageBox.Show("Har har har! It be all in the cards matey!") 'DEALER WINS (BLACKJACK)
-            DeductCoins(BetAmount)
-            '*END GAME FUNCTION HERE*
+            DealerBlackJack()
+            EndGame()
         End If
     End Sub
 
+    Private Sub CheckForEndgame()
+        Dim PlayerScore As Integer = CInt(Label_score_player.Text)
+        Dim DealerScore As Integer = CInt(Label_score_dealer.Text)
 
-    'TODO: Create EndGame and CheckForEndGame functions before overhauling logic in player controls
-    '********* WIP *********
+        If PlayerScore > 21 Then
+            DealerWin()
+        ElseIf DealerScore > 21 OrElse PlayerScore > DealerScore Then
+            PlayerWin()
+        ElseIf PlayerScore < DealerScore Then
+            DealerWin()
+        Else
+            Standoff()
+        End If
+        EndGame()
+    End Sub
+
+    Private Sub EndGame()
+        Button_deal.Enabled = True
+        Button_hit.Enabled = False
+        Button_stand.Enabled = False
+    End Sub
+
+    Private Sub Button_reset_Click(sender As Object, e As EventArgs) Handles Button_reset.Click
+        Coins = StartingCoins
+        BetAmount = 0
+        UpdateCoinCounter()
+        ResetGame()
+        Button_deal.Enabled = True
+    End Sub
 
     Private Sub Button_deal_Click(sender As Object, e As EventArgs) Handles Button_deal.Click
-        Dim PlayerScore As Integer = CInt(Label_score_player.Text)
-        Dim DealerScore As Integer = CInt(Label_score_dealer.Text)
-        Dim newCard As Integer = RandomNumber(21)
-
-        'Deal cards and enable player controls
-        Label_score_dealer.Text = RandomNumber(21)
-        Label_score_player.Text = RandomNumber(21)
-        Button_deal.Enabled = False
-        Button_hit.Enabled = True
-        Button_stand.Enabled = True
-
-        If PlayerScore = 21 Then
-            MessageBox.Show("Arr... Ye got a blagjag!") 'PLAYER WINS (BLACKJACK)
-            AddCoins(50)
-        End If
-
-        If DealerScore = 21 Then
-            MessageBox.Show("Har har har! It be all in the cards matey!") 'DEALER WINS (BLACKJACK)
-            DeductCoins(50)
-        End If
-
-        If PlayerScore = 0 Then
-            PlayerScore = newCard
-        End If
-
-        If DealerScore = 0 Then
-            DealerScore = newCard
-        End If
-    End Sub
-
-    Private Sub Button_hit_Click(sender As Object, e As EventArgs) Handles Button_hit.Click
-        Dim PlayerScore As Integer = CInt(Label_score_player.Text)
-        Dim DealerScore As Integer = CInt(Label_score_dealer.Text)
-        Dim newCard As Integer = RandomNumber(21)
-
-        'If stand button has been disabled to prevent player looping, reenable when player hits
-        If Button_stand.Enabled = False Then
-            Button_stand.Enabled = True
-        End If
-
-        'PLAYER draws a card
-        If PlayerScore < 21 Then
-            PlayerScore += newCard
-            Label_score_player.Text = PlayerScore.ToString()
-        End If
-
-        'DEALER draws a card
-        If DealerScore < 17 Then
-            DealerScore += RandomNumber(21)
-            Label_score_dealer.Text = DealerScore.ToString()
-        End If
-
-        If PlayerScore >= 21 Then 'PLAYER BUST OR WIN
-            If PlayerScore = 21 Then
-                MessageBox.Show("Arr... Ye got a blagjag!") 'PLAYER WINS (BLACKJACK)
-                AddCoins(50)
-            Else
-                MessageBox.Show("Har har har! It be all in the cards matey!") 'DEALER WINS
-                DeductCoins(50)
-            End If
-        End If
-
-        If DealerScore >= 21 Then 'DEALER BUST OR WIN
-            If DealerScore = 21 Then
-                MessageBox.Show("Har har har! BLAAAAAGJAAAAGG!") 'DEALER WINS (BLACKJACK)
-                DeductCoins(50)
-            Else
-                MessageBox.Show("Arr... Ye bested me this time, scallywag!") 'PLAYER WINS
-                AddCoins(50)
-            End If
-        End If
-
-        If PlayerScore >= 21 OrElse DealerScore >= 21 Then 'GAME OVER - HIT AND STAND DISABLED
-            Button_hit.Enabled = False
-            Button_stand.Enabled = False
-        End If
-    End Sub
-
-    Private Sub Button_stand_Click(sender As Object, e As EventArgs) Handles Button_stand.Click
-        Dim PlayerScore As Integer = CInt(Label_score_player.Text)
-        Dim DealerScore As Integer = CInt(Label_score_dealer.Text)
-
-        'DEALER draws a card until >= 17
-        While DealerScore < 17
-            DealerScore += RandomNumber(21)
-            Label_score_dealer.Text = DealerScore.ToString()
-        End While
-
-        'Compare scores and decide on a winner
-        If PlayerScore = 21 And DealerScore <> 21 Then
-            MessageBox.Show("Arr... Ye got a blagjag!") 'PLAYER WINS (BLACKJACK)
-            AddCoins(50)
-        ElseIf DealerScore = 21 And PlayerScore <> 21 Then
-            MessageBox.Show("Har har har! BLAAAAAGJAAAAGG!") 'DEALER WINS (BLACKJACK)
-            DeductCoins(50)
-        ElseIf PlayerScore > 21 And DealerScore <= 21 Then
-            MessageBox.Show("Har har har! It be all in the cards matey!") 'DEALER WINS
-            DeductCoins(50)
-        ElseIf DealerScore > 21 And PlayerScore <= 21 Then
-            MessageBox.Show("Arr... Ye bested me this time, scallywag!") 'PLAYER WINS
-            AddCoins(50)
-        ElseIf PlayerScore > DealerScore Then
-            MessageBox.Show("Arr... Ye bested me this time, scallywag!") 'PLAYER WINS
-            AddCoins(50)
-        ElseIf DealerScore > PlayerScore Then
-            MessageBox.Show("Har har har! It be all in the cards matey!") 'DEALER WINS
-            DeductCoins(50)
-        ElseIf PlayerScore And DealerScore = 21 Then
-            MessageBox.Show("Avast!") ' DRAW - STANDOFF
-        ElseIf PlayerScore < 21 And DealerScore = 21 Then
-            MessageBox.Show("Har har har! BLAAAAAGJAAAAGG!") 'DEALER WINS (BLACKJACK)
-            DeductCoins(50)
-        ElseIf DealerScore < 21 And PlayerScore = 21 Then
-            MessageBox.Show("Arr... Ye got a blagjag!") 'PLAYER WINS (BLACKJACK)
-            AddCoins(50)
-        ElseIf PlayerScore < 21 And DealerScore > 21 Then
-            MessageBox.Show("Arr... Ye bested me this time, scallywag!") 'PLAYER WINS (DEALER BUST)
-            AddCoins(50)
-        ElseIf PlayerScore And DealerScore > 21 Then
-            MessageBox.Show("Har har har! It be all in the cards matey!") 'DEALER WINS (PLAYER & DEALER BUST)
-            DeductCoins(50)
-        End If
-
-
-        'Game over - Disable player controls 
-        If PlayerScore >= 21 OrElse DealerScore >= 21 Then 'GAME OVER - HIT AND STAND DISABLED
-            Button_hit.Enabled = False
-            Button_stand.Enabled = False
-        Else
-            Button_hit.Enabled = True 'KEEP PLAYER CONTROLS ACTIVE UNTIL PLAYER OR DEALER 21>
-            Button_stand.Enabled = True
-        End If
-    End Sub
-
-    'RESET
-    Private Sub Button_reset_Click(sender As Object, e As EventArgs) Handles Button_reset.Click
-        Label_score_player.Text = ""
-        Label_score_dealer.Text = ""
-        Button_deal.Enabled = True
+        ResetGame()
+        DealFirstHand()
+        CheckForBlackjack()
     End Sub
 
     'Increase Bet
@@ -232,15 +138,32 @@ Public Class Game
 
     'Max Bet
     Private Sub Button_bet_maximum_Click(sender As Object, e As EventArgs) Handles Button_bet_maximum.Click
-        If Coins >= MaxBet Then 'Make fixing
+        If Coins >= MaxBet Then
             BetAmount = MaxBet
             Coins -= MaxBet
-            UpdateCoinCounter()
         Else
             BetAmount = Coins
             Coins = 0
-            UpdateCoinCounter()
+        End If
+        UpdateCoinCounter()
+    End Sub
+
+    Private Sub Button_hit_Click(sender As Object, e As EventArgs) Handles Button_hit.Click
+        Dim PlayerScore As Integer = CInt(Label_score_player.Text)
+        PlayerScore += RandomNumber(10)
+        Label_score_player.Text = CStr(PlayerScore)
+
+        If PlayerScore >= 21 Then
+            CheckForBlackjack()
         End If
     End Sub
-End Class
 
+    Private Sub Button_stand_Click(sender As Object, e As EventArgs) Handles Button_stand.Click
+        Dim DealerScore As Integer = CInt(Label_score_dealer.Text)
+        While DealerScore < 17
+            DealerScore += RandomNumber(10)
+        End While
+        Label_score_dealer.Text = DealerScore.ToString
+        CheckForEndgame()
+    End Sub
+End Class

@@ -16,7 +16,7 @@ Imports System.Reflection
 <Assembly: System.Reflection.AssemblyCompanyAttribute("Blagjag"),  _
  Assembly: System.Reflection.AssemblyConfigurationAttribute("Debug"),  _
  Assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0"),  _
- Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0"),  _
+ Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc071c95602d16b7dfeb3dabdc59e6109579c6f6"),  _
  Assembly: System.Reflection.AssemblyProductAttribute("Blagjag"),  _
  Assembly: System.Reflection.AssemblyTitleAttribute("Blagjag"),  _
  Assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0"),  _

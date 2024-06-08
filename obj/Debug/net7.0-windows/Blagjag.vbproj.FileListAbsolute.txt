@@ -16,3 +16,4 @@ C:\Users\aaaa\Desktop\PROJECTS - Visual Basic\Blagjag\obj\Debug\net7.0-windows\r
 C:\Users\aaaa\Desktop\PROJECTS - Visual Basic\Blagjag\obj\Debug\net7.0-windows\Blagjag.Home.resources
 C:\Users\aaaa\Desktop\PROJECTS - Visual Basic\Blagjag\obj\Debug\net7.0-windows\Blagjag.Game.resources
 C:\Users\aaaa\Desktop\PROJECTS - Visual Basic\Blagjag\obj\Debug\net7.0-windows\Blagjag.Resources.resources
+C:\Users\aaaa\Desktop\PROJECTS - Visual Basic\Blagjag\obj\Debug\net7.0-windows\Blagjag.sourcelink.json
